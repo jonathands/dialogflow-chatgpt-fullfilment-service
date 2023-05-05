@@ -9,8 +9,9 @@ const port = 3000;
 app.use(express.json());
 
 app.post('/gpt-request', async (req, res) => {
-
-  const prompt = req.body.prompt;
+  // const intentName = req.body.queryResult.intent.displayName;
+  
+  const prompt = req.body.queryResult.queryText;
   const apiKey = process.env.API_KEY;
   const url = 'https://api.openai.com/v1/chat/completions';  
   
@@ -29,9 +30,11 @@ app.post('/gpt-request', async (req, res) => {
   });
 
   const result = response.data.choices[0].message;
-  console.log(result);
-  console.log(response.data);
-  res.send(result);
+  const dfResponse = {
+    fulfillmentText: result
+  };
+
+  res.send(dfResponse);
 });
 
 app.listen(port, () => {
