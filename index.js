@@ -45,7 +45,7 @@ app.post('/gpt-request', async (req, res) => {
 
   const result = response.data.choices[0].message;
   const dfResponse = {
-    fulfillmentText: result
+    fulfillmentText: result.content
   };
 
   res.send(dfResponse);
